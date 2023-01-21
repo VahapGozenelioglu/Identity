@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Vahap\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Vahap\\.nuget\\packages"
+    ]
+  }
+}
