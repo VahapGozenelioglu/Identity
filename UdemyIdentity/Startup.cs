@@ -1,5 +1,6 @@
  using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,24 @@ namespace UdemyIdentity
 
 
             services.AddMvc(option => option.EnableEndpointRouting = false);
+
+
+            CookieBuilder cookieBuilder = new CookieBuilder();
+
+            cookieBuilder.Name = "MySite";
+            cookieBuilder.HttpOnly = false;
+            cookieBuilder.Expiration = TimeSpan.FromHours(2);
+            cookieBuilder.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+            cookieBuilder.SameSite = SameSiteMode.Lax;
+
+
+
+            services.ConfigureApplicationCookie(opts =>
+            {
+                opts.LoginPath = "/Home/Login";
+                opts.Cookie = cookieBuilder;
+                opts.SlidingExpiration = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
