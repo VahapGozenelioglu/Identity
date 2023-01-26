@@ -60,7 +60,6 @@ namespace UdemyIdentity
 
             cookieBuilder.Name = "MySite";
             cookieBuilder.HttpOnly = false;
-            cookieBuilder.Expiration = TimeSpan.FromHours(2);
             cookieBuilder.SecurePolicy = CookieSecurePolicy.SameAsRequest;
             cookieBuilder.SameSite = SameSiteMode.Lax;
 
@@ -71,6 +70,7 @@ namespace UdemyIdentity
                 opts.LoginPath = "/Home/Login";
                 opts.Cookie = cookieBuilder;
                 opts.SlidingExpiration = true;
+                opts.ExpireTimeSpan= TimeSpan.FromHours(1);
             });
         }
 

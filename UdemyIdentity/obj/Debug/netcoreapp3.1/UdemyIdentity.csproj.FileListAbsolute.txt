@@ -153,3 +153,4 @@ C:\Users\Vahap\source\repos\UdemyIdentity\UdemyIdentity\obj\Debug\netcoreapp3.1\
 C:\Users\Vahap\source\repos\UdemyIdentity\UdemyIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
 C:\Users\Vahap\source\repos\UdemyIdentity\UdemyIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Home\SignUp.cshtml.g.cs
 C:\Users\Vahap\source\repos\UdemyIdentity\UdemyIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
+C:\Users\Vahap\source\repos\UdemyIdentity\UdemyIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Member\Index.cshtml.g.cs
