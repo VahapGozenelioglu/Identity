@@ -70,7 +70,7 @@ namespace UdemyIdentity
                 opts.LoginPath = "/Home/Login";
                 opts.Cookie = cookieBuilder;
                 opts.SlidingExpiration = true;
-                opts.ExpireTimeSpan= TimeSpan.FromHours(1);
+                opts.ExpireTimeSpan= TimeSpan.FromDays(30);
             });
         }
 
@@ -81,7 +81,7 @@ namespace UdemyIdentity
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages(); 
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvcWithDefaultRoute();
         }
     }

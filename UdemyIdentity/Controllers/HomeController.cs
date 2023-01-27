@@ -15,8 +15,9 @@ namespace UdemyIdentity.Controllers
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
-        public IActionResult Index()
+        public IActionResult Index(string returnUrl)
         {
+            TempData["ReturnUrl"] = returnUrl;
             return View();
         }
 
@@ -35,10 +36,15 @@ namespace UdemyIdentity.Controllers
                 if(user != null)
                 {
                     await signInManager.SignOutAsync();
-                    Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(user, userLogin.Password, false, false);
+                    Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(user, userLogin.Password, userLogin.RememberMe, false);
 
                     if (result.Succeeded)
                     {
+                        if (TempData["ReturnUrl"] != null) 
+                        {
+                            return Redirect(TempData["ReturnUrl"].ToString());
+                        }
+                         
                         return RedirectToAction("Index", "Member");
                     }
                 }
@@ -48,7 +54,7 @@ namespace UdemyIdentity.Controllers
                 }
             }
 
-            return View();
+            return View(userLogin);
         }
 
         public IActionResult SignUp()

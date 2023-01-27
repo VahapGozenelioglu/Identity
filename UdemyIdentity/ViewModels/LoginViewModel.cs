@@ -13,5 +13,7 @@ namespace UdemyIdentity.ViewModels
         [DataType(DataType.Password)]
         [MinLength(4, ErrorMessage = "Password should be at least 4 characters")]
         public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
     }
 }
