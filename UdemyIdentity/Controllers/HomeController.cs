@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using UdemyIdentity.Models;
 using UdemyIdentity.ViewModels;
@@ -35,17 +36,43 @@ namespace UdemyIdentity.Controllers
 
                 if(user != null)
                 {
+                    if(await userManager.IsLockedOutAsync(user))
+                    {
+                        ModelState.AddModelError("", "Your account is locked for a while. Please try again later.");
+                        return View(userLogin);
+                    }
+
+
                     await signInManager.SignOutAsync();
                     Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(user, userLogin.Password, userLogin.RememberMe, false);
 
                     if (result.Succeeded)
                     {
+                        await userManager.ResetAccessFailedCountAsync(user);
+
                         if (TempData["ReturnUrl"] != null) 
                         {
                             return Redirect(TempData["ReturnUrl"].ToString());
                         }
                          
                         return RedirectToAction("Index", "Member");
+                    }
+
+                    else
+                    {
+                        await userManager.AccessFailedAsync(user);
+
+                        int failCount = await userManager.GetAccessFailedCountAsync(user);
+
+                        if(failCount == 3)
+                        {
+                            await userManager.SetLockoutEndDateAsync(user, new DateTimeOffset( DateTime.Now.AddMinutes(30)));
+                            ModelState.AddModelError("", "Your account is locked for 30 minutes due to 3 unsuccessful attempts");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Invalid email or password");
+                        }
                     }
                 }
                 else
