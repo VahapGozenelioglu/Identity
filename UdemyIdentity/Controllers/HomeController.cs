@@ -34,9 +34,9 @@ namespace UdemyIdentity.Controllers
             {
                 AppUser user = await userManager.FindByEmailAsync(userLogin.Email);
 
-                if(user != null)
+                if (user != null)
                 {
-                    if(await userManager.IsLockedOutAsync(user))
+                    if (await userManager.IsLockedOutAsync(user))
                     {
                         ModelState.AddModelError("", "Your account is locked for a while. Please try again later.");
                         return View(userLogin);
@@ -50,11 +50,11 @@ namespace UdemyIdentity.Controllers
                     {
                         await userManager.ResetAccessFailedCountAsync(user);
 
-                        if (TempData["ReturnUrl"] != null) 
+                        if (TempData["ReturnUrl"] != null)
                         {
                             return Redirect(TempData["ReturnUrl"].ToString());
                         }
-                         
+
                         return RedirectToAction("Index", "Member");
                     }
 
@@ -64,9 +64,9 @@ namespace UdemyIdentity.Controllers
 
                         int failCount = await userManager.GetAccessFailedCountAsync(user);
 
-                        if(failCount == 3)
+                        if (failCount == 3)
                         {
-                            await userManager.SetLockoutEndDateAsync(user, new DateTimeOffset( DateTime.Now.AddMinutes(30)));
+                            await userManager.SetLockoutEndDateAsync(user, new DateTimeOffset(DateTime.Now.AddMinutes(30)));
                             ModelState.AddModelError("", "Your account is locked for 30 minutes due to 3 unsuccessful attempts");
                         }
                         else
@@ -107,13 +107,91 @@ namespace UdemyIdentity.Controllers
                 }
                 else
                 {
-                    foreach(var item in result.Errors)
+                    foreach (var item in result.Errors)
                     {
                         ModelState.AddModelError("", item.Description);
                     }
                 }
             }
             return View(newUser);
+        }
+
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(PasswordResetViewModel passwordResetViewModel)
+
+        {
+            AppUser user = userManager.FindByEmailAsync(passwordResetViewModel.Email).Result;
+
+            if (user != null)
+            {
+                string passwordResetToken = userManager.GeneratePasswordResetTokenAsync(user).Result;
+
+                string passwordResetLink = Url.Action("ResetPasswordConfirm", "Home", new
+                {
+                    userId = user.Id,
+                    token = passwordResetToken
+                }, HttpContext.Request.Scheme); ;
+
+                Services.PasswordReset.PasswordResetSendEmail(passwordResetLink);
+                ViewBag.status = "Success";
+            }
+
+            else
+            {
+                ModelState.AddModelError("", "No user found with this email");
+            }
+
+
+
+            return View(passwordResetViewModel);
+        }
+
+        public IActionResult ResetPasswordConfirm(string userId, string token)
+        {
+            TempData["userId"] = userId;
+            TempData["token"] = token;
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPasswordConfirm([Bind("NewPassword")]PasswordResetViewModel passwordResetViewModel)
+        {
+            var userId = TempData["userId"].ToString();
+            var token = TempData["token"].ToString();
+
+            var user = await userManager.FindByIdAsync(userId);
+
+            if(user != null)
+            {
+                var result = await userManager.ResetPasswordAsync(user, token, passwordResetViewModel.NewPassword);
+
+                if (result.Succeeded)
+                {
+                    await userManager.UpdateSecurityStampAsync(user);
+                    ViewBag.status = "Success";
+                }
+
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+
+            else
+            {
+                ModelState.AddModelError("", "An error occurred please try again later");
+            }
+
+            return View(passwordResetViewModel);
         }
     }
 }
