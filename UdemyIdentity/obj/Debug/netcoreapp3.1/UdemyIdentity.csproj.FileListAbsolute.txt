@@ -156,3 +156,6 @@ C:\Users\Vahap\source\repos\UdemyIdentity\UdemyIdentity\obj\Debug\netcoreapp3.1\
 C:\Users\Vahap\source\repos\UdemyIdentity\UdemyIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Member\Index.cshtml.g.cs
 C:\Users\Vahap\source\repos\UdemyIdentity\UdemyIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Home\ResetPassword.cshtml.g.cs
 C:\Users\Vahap\source\repos\UdemyIdentity\UdemyIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Home\ResetPasswordConfirm.cshtml.g.cs
+C:\Users\Vahap\source\repos\UdemyIdentity\UdemyIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Member\_MemberLayout.cshtml.g.cs
+C:\Users\Vahap\source\repos\UdemyIdentity\UdemyIdentity\bin\Debug\netcoreapp3.1\Mapster.dll
+C:\Users\Vahap\source\repos\UdemyIdentity\UdemyIdentity\bin\Debug\netcoreapp3.1\Mapster.Core.dll

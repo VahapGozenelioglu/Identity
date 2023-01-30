@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "irynPykummM2G1bTqjkI9yhX4uXFU8EKMwwS2OgrJG6yu2lsIjGqxqURoE7Bc0AY2RCj4OhRsVWRiD7KqFn76Q==",
+  "dgSpecHash": "nSK6tBklLlyXjyghfOX3Q3bxgKtcF9YiOONg4QPSHT0/e+Sj8lob7v/nTKyeoUC4dUwm3g/Y6YoCFp3ocH3pCg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Vahap\\source\\repos\\UdemyIdentity\\UdemyIdentity\\UdemyIdentity.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Vahap\\.nuget\\packages\\mapster\\7.3.0\\mapster.7.3.0.nupkg.sha512",
+    "C:\\Users\\Vahap\\.nuget\\packages\\mapster.core\\1.2.0\\mapster.core.1.2.0.nupkg.sha512",
     "C:\\Users\\Vahap\\.nuget\\packages\\microsoft.aspnetcore.authentication.facebook\\3.1.2\\microsoft.aspnetcore.authentication.facebook.3.1.2.nupkg.sha512",
     "C:\\Users\\Vahap\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\3.1.2\\microsoft.aspnetcore.authentication.google.3.1.2.nupkg.sha512",
     "C:\\Users\\Vahap\\.nuget\\packages\\microsoft.aspnetcore.authentication.microsoftaccount\\3.1.2\\microsoft.aspnetcore.authentication.microsoftaccount.3.1.2.nupkg.sha512",
